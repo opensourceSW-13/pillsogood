@@ -65,7 +65,7 @@
         <GridView
             android:id="@+id/monthView"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="520dp"
             android:background="#ffbbbbbb"
             android:horizontalSpacing="1dp"
             android:numColumns="7"
