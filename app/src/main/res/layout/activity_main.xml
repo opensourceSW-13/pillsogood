@@ -6,13 +6,95 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+
+        <RelativeLayout
+            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:background="#ffffffff"
+            >
+
+            <Button
+                android:id="@+id/monthPrevious"
+                android:layout_width="20dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="13dp"
+                android:background="@drawable/backward"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/monthText"
+                android:layout_width="198dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:text="MonthView"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/monthNext"
+                android:layout_width="20dp"
+                android:layout_height="45dp"
+                android:layout_margin="13dp"
+                android:background="@drawable/forward"
+                android:gravity="center_horizontal"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/middleText"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:rotationX="-2"
+            android:text="복용한 약"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <GridView
+            android:id="@+id/monthView"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="#ffbbbbbb"
+            android:horizontalSpacing="1dp"
+            android:numColumns="7"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="1dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffffff"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <Button
+                android:id="@+id/mypeel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:text="내 약"
+                android:textSize="30dp"
+                android:textStyle="bold"
+
+                 />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
