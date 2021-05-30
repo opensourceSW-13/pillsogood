@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "MYDRUG.db";
+    private static final String DB_NAME = "MYDRUG.db"; //저장한 디비의 이름
 
     public SQLiteHelper(@Nullable Context context) {
         super(context, DB_NAME,null, DB_VERSION);

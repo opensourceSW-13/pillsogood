@@ -45,6 +45,7 @@
 
     <Button
         android:id="@+id/button_add"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+ 약을 추가하려면 누르세요"
