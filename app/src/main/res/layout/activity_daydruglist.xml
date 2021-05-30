@@ -2,8 +2,61 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DaydruglistActivity">
+    tools:context=".MainActivity">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_back"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_arrowleft" />
+
+    <TextView
+        android:id="@+id/tv_daydrug"
+        android:layout_width="222dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="8dp"
+        android:text="오늘 복용할 약"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/igm_pill"
+        app:layout_constraintStart_toEndOf="@+id/igm_pill"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/igm_pill"
+        android:layout_width="54dp"
+        android:layout_height="56dp"
+        app:srcCompat="@drawable/icon_pill"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="91dp" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="날짜"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_daydrug"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ListView
+        android:id="@+id/listView_data"
+        android:layout_width="368dp"
+        android:layout_height="525dp"
+
+        android:choiceMode="multipleChoice"
+        app:layout_constraintStart_toStartOf="@+id/igm_pill"
+        app:layout_constraintTop_toBottomOf="@+id/tv_daydrug"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
