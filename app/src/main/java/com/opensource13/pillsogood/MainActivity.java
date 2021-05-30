@@ -1,56 +1,87 @@
 package com.opensource13.pillsogood;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
-/**
- * 그리드뷰를 이용해 월별 캘린더를 만드는 방법에 대해 알 수 있습니다.
- *
- * @author Mike
- */
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * 월별 캘린더 뷰 객체
-     */
     GridView monthView;
 
-    /**
-     * 월별 캘린더 어댑터
-     */
     MonthAdapter monthViewAdapter;
 
-    /**
-     * 월을 표시하는 텍스트뷰
-     */
     TextView monthText;
 
-    /**
-     * 현재 연도
-     */
+    Button btnShow;
+
+    Date selectedDate;
+
+    TextView tvSelectedDate;
+
     int curYear;
 
-    /**
-     * 현재 월
-     */
     int curMonth;
+
+    Calendar mCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
+        btnShow = findViewById(R.id.btn_show);
+        tvSelectedDate = findViewById(R.id.tv_selected_date);
+
+        btnShow.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                MyGridViewCalendar myGridViewCalendar = new MyGridViewCalendar();
+                myGridViewCalendar.setSelectedDate(new Date());
+                myGridViewCalendar.show(getSupportFragmentManager(), "grid_view_calendar");
+            }
+        });
+
+ */
 
         // 월별 캘린더 뷰 객체 참조
         monthView = (GridView) findViewById(R.id.monthView);
         monthViewAdapter = new MonthAdapter(this);
         monthView.setAdapter(monthViewAdapter);
+
+
+        //오늘 날짜 세팅
+        long now = System.currentTimeMillis();
+        final Date date = new Date(now);
+        //연, 월, 일 따로 저장
+        final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+        final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
+        final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+
+
+        //현재 날짜 텍스트뷰에 뿌리기
+        //tvDate.setText(curYearFormat.format(date) + "/" + curMonthFormat.format(date));
+
+
 
         // 리스너 설정
         monthView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,16 +121,374 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // "내 약" 버튼을 눌러 MydrugActivity로 넘어가는 이벤트 처리
+        Button myPeel = (Button) findViewById(R.id.myPeel);
+        myPeel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MydrugActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    /**
-     * 월 표시 텍스트 설정
-     */
+     //월 표시 텍스트 설정
     private void setMonthText() {
         curYear = monthViewAdapter.getCurYear();
         curMonth = monthViewAdapter.getCurMonth();
 
         monthText.setText(curYear + "년 " + (curMonth + 1) + "월");
     }
+
+}
+
+//어댑터 객체 정의
+class MonthAdapter extends BaseAdapter {
+
+    public static final String TAG = "MonthAdapter";
+
+    Context mContext;
+
+    public static int oddColor = Color.rgb(225, 225, 225);
+    public static int headColor = Color.rgb(12, 32, 158);
+
+    private int selectedPosition = -1;
+
+    private MonthItem[] items;
+
+    private int countColumn = 7;
+
+    int mStartDay;
+    int startDay;
+    int curYear;
+    int curMonth;
+
+    int firstDay;
+    int lastDay;
+
+    Calendar mCalendar;
+    Calendar mCals;
+
+    boolean recreateItems = false;
+
+    public MonthAdapter(Context context) {
+        super();
+
+        mContext = context;
+
+        init();
+    }
+
+    public MonthAdapter(Context context, AttributeSet attrs) {
+        super();
+
+        mContext = context;
+
+        init();
+    }
+
+    private void init() {
+        items = new MonthItem[7 * 6];
+
+        mCalendar = Calendar.getInstance();
+        recalculate();
+        resetDayNumbers();
+
+    }
+
+
+    public void recalculate() {
+
+        // set to the first day of the month
+        mCalendar.set(Calendar.DAY_OF_MONTH, 1);
+
+        // get week day
+        int dayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK);
+        firstDay = getFirstDay(dayOfWeek);
+        Log.d(TAG, "firstDay : " + firstDay);
+
+        mStartDay = mCalendar.getFirstDayOfWeek();
+        curYear = mCalendar.get(Calendar.YEAR);
+        curMonth = mCalendar.get(Calendar.MONTH);
+        lastDay = getMonthLastDay(curYear, curMonth);
+
+        Log.d(TAG, "curYear : " + curYear + ", curMonth : " + curMonth + ", lastDay : " + lastDay);
+
+        int diff = mStartDay - Calendar.SUNDAY - 1;
+        startDay = getFirstDayOfWeek();
+        Log.d(TAG, "mStartDay : " + mStartDay + ", startDay : " + startDay);
+
+    }
+
+    public void setPreviousMonth() {
+        mCalendar.add(Calendar.MONTH, -1);
+        recalculate();
+
+        resetDayNumbers();
+        selectedPosition = -1;
+    }
+
+    public void setNextMonth() {
+        mCalendar.add(Calendar.MONTH, 1);
+        recalculate();
+
+        resetDayNumbers();
+        selectedPosition = -1;
+    }
+
+    public void resetDayNumbers() {
+        for (int i = 0; i < 42; i++) {
+            // calculate day number
+            int dayNumber = (i+1) - firstDay;
+            if (dayNumber < 1 || dayNumber > lastDay) {
+                dayNumber = 0;
+            }
+
+            // save as a data item
+            items[i] = new MonthItem(dayNumber);
+        }
+    }
+
+    private int getFirstDay(int dayOfWeek) {
+        int result = 0;
+        if (dayOfWeek == Calendar.SUNDAY) {
+            result = 0;
+        } else if (dayOfWeek == Calendar.MONDAY) {
+            result = 1;
+        } else if (dayOfWeek == Calendar.TUESDAY) {
+            result = 2;
+        } else if (dayOfWeek == Calendar.WEDNESDAY) {
+            result = 3;
+        } else if (dayOfWeek == Calendar.THURSDAY) {
+            result = 4;
+        } else if (dayOfWeek == Calendar.FRIDAY) {
+            result = 5;
+        } else if (dayOfWeek == Calendar.SATURDAY) {
+            result = 6;
+        }
+
+        return result;
+    }
+
+
+    public int getCurYear() {
+        return curYear;
+    }
+
+    public int getCurMonth() {
+        return curMonth;
+    }
+
+
+    public int getNumColumns() {
+        return 7;
+    }
+
+    public int getCount() {
+        return 7 * 6;
+    }
+
+    public Object getItem(int position) {
+        return items[position];
+    }
+
+    public long getItemId(int position) {
+        return position;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d(TAG, "getView(" + position + ") called.");
+
+        MonthItemView itemView;
+        //RecyclerView.ViewHolder holder = null;
+
+        if (convertView == null) {
+            itemView = new MonthItemView(mContext);
+        } else {
+            itemView = (MonthItemView) convertView;
+        }
+
+        // create a params
+        GridView.LayoutParams params = new GridView.LayoutParams(
+                GridView.LayoutParams.MATCH_PARENT,
+                196);
+
+        // calculate row and column
+        int rowIndex = position / countColumn;
+        int columnIndex = position % countColumn;
+
+        Log.d(TAG, "Index : " + rowIndex + ", " + columnIndex);
+
+        // set item data and properties
+        itemView.setItem(items[position]);
+        itemView.setLayoutParams(params);
+        itemView.setPadding(2, 2, 2, 2);
+
+        // set properties
+        itemView.setGravity(Gravity.LEFT);
+
+        if (columnIndex == 0) {
+            itemView.setTextColor(Color.RED);
+        }
+        else if (columnIndex == 6) {
+            itemView.setTextColor(Color.BLUE);
+        }
+        else {
+            itemView.setTextColor(Color.BLACK);
+        }
+
+        // set background color
+        if (position == getSelectedPosition()) {
+            itemView.setBackgroundColor(Color.YELLOW);
+        } else {
+            itemView.setBackgroundColor(Color.rgb(250, 250, 250));
+        }
+
+
+        //set today background color
+        mCals = Calendar.getInstance();
+        Integer today = mCals.get(Calendar.DAY_OF_MONTH);
+        String sToday = String.valueOf(today);
+
+        if (sToday.equals(getItem(position))) {
+            itemView.setBackgroundColor(Color.BLUE);
+        }
+
+
+
+        return itemView;
+    }
+
+
+    /**
+     * Get first day of week as android.text.format.Time constant.
+     * @return the first day of week in android.text.format.Time
+     */
+    public static int getFirstDayOfWeek() {
+        int startDay = Calendar.getInstance().getFirstDayOfWeek();
+        if (startDay == Calendar.SATURDAY) {
+            return Time.SATURDAY;
+        } else if (startDay == Calendar.MONDAY) {
+            return Time.MONDAY;
+        } else {
+            return Time.SUNDAY;
+        }
+    }
+
+
+    /**
+     * get day count for each month
+     *
+     * @param year
+     * @param month
+     * @return
+     */
+    private int getMonthLastDay(int year, int month){
+        switch (month) {
+            case 0:
+            case 2:
+            case 4:
+            case 6:
+            case 7:
+            case 9:
+            case 11:
+                return (31);
+
+            case 3:
+            case 5:
+            case 8:
+            case 10:
+                return (30);
+
+            default:
+                if(((year%4==0)&&(year%100!=0)) || (year%400==0) ) {
+                    return (29);   // 2월 윤년계산
+                } else {
+                    return (28);
+                }
+        }
+    }
+
+    /**
+     * set selected row
+     */
+    public void setSelectedPosition(int selectedPosition) {
+        this.selectedPosition = selectedPosition;
+    }
+
+    /**
+     * get selected row
+     *
+     * @return
+     */
+    public int getSelectedPosition() {
+        int selectedPosition = this.selectedPosition;
+        return selectedPosition;
+    }
+
+}
+
+/**
+ * 일자 정보를 담기 위한 클래스 정의
+ */
+class MonthItem {
+    private int dayValue;
+
+    public MonthItem() {
+
+    }
+
+    public MonthItem(int day) {
+        dayValue = day;
+    }
+
+    public int getDay() {
+        return dayValue;
+    }
+
+    public void setDay(int day) {
+        this.dayValue = day;
+    }
+
+}
+
+/**
+ * 일자에 표시하는 텍스트뷰 정의
+ */
+class MonthItemView extends AppCompatTextView {
+
+    private MonthItem item;
+
+    public MonthItemView(Context context) {
+        super(context);
+
+        init();
+    }
+
+    public MonthItemView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
+        init();
+    }
+
+    private void init() {
+        setBackgroundColor(Color.rgb(250, 250, 250));
+    }
+
+    public MonthItem getItem() {
+        return item;
+    }
+
+    public void setItem(MonthItem item) {
+        this.item = item;
+
+        int day = item.getDay();
+        if (day != 0) {
+            setText(String.valueOf(day));
+        } else {
+            setText("");
+        }
+
+    }
+
 
 }
