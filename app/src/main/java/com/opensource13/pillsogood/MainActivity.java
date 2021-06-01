@@ -2,6 +2,7 @@ package com.opensource13.pillsogood;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,62 +28,28 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    //SQLiteDatabase database;
+    //String dbName =
+
     GridView monthView;
 
     MonthAdapter monthViewAdapter;
 
     TextView monthText;
 
-    Button btnShow;
-
-    Date selectedDate;
-
-    TextView tvSelectedDate;
-
     int curYear;
 
     int curMonth;
-
-    Calendar mCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        btnShow = findViewById(R.id.btn_show);
-        tvSelectedDate = findViewById(R.id.tv_selected_date);
-
-        btnShow.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                MyGridViewCalendar myGridViewCalendar = new MyGridViewCalendar();
-                myGridViewCalendar.setSelectedDate(new Date());
-                myGridViewCalendar.show(getSupportFragmentManager(), "grid_view_calendar");
-            }
-        });
-
- */
 
         // 월별 캘린더 뷰 객체 참조
         monthView = (GridView) findViewById(R.id.monthView);
-        monthViewAdapter = new MonthAdapter(this);
+        monthViewAdapter = new MonthAdapter(getApplicationContext());
         monthView.setAdapter(monthViewAdapter);
-
-
-        //오늘 날짜 세팅
-        long now = System.currentTimeMillis();
-        final Date date = new Date(now);
-        //연, 월, 일 따로 저장
-        final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
-        final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
-        final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
-
-
-        //현재 날짜 텍스트뷰에 뿌리기
-        //tvDate.setText(curYearFormat.format(date) + "/" + curMonthFormat.format(date));
-
-
 
         // 리스너 설정
         monthView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 날짜 누르면 DaydruglistActivity로 넘어가는 이벤트 처리
+        monthView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(MainActivity.this, DaydruglistActivity.class);
+                // intent.putExtra("image", logos[position]); // put image data in Intent
+                startActivity(intent); // start Intent
+            }
+        });
 
         monthText = (TextView) findViewById(R.id.monthText);
         setMonthText();
@@ -121,14 +98,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // "내 약" 버튼을 눌러 MydrugActivity로 넘어가는 이벤트 처리
-        Button myPeel = (Button) findViewById(R.id.myPeel);
+        // "내 약" 버튼 누르면 MydrugActivity로 넘어가는 이벤트 처리
+        Button myPeel = (Button) findViewById(R.id.myPill);
         myPeel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MydrugActivity.class);
                 startActivity(intent);
             }
         });
+
+        /*
+        //오늘 날짜 세팅
+        long now = System.currentTimeMillis();
+        final Date date = new Date(now);
+        //연, 월, 일 따로 저장
+        final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+        final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
+        final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+
+        //현재 날짜 텍스트뷰에 뿌리기
+        tvDate.setText(curYearFormat.format(date) + "/" + curMonthFormat.format(date));
+        */
     }
 
      //월 표시 텍스트 설정
@@ -148,8 +138,8 @@ class MonthAdapter extends BaseAdapter {
 
     Context mContext;
 
-    public static int oddColor = Color.rgb(225, 225, 225);
-    public static int headColor = Color.rgb(12, 32, 158);
+    //public static int oddColor = Color.rgb(225, 225, 225);
+    //public static int headColor = Color.rgb(12, 32, 158);
 
     private int selectedPosition = -1;
 
@@ -188,11 +178,9 @@ class MonthAdapter extends BaseAdapter {
 
     private void init() {
         items = new MonthItem[7 * 6];
-
         mCalendar = Calendar.getInstance();
         recalculate();
         resetDayNumbers();
-
     }
 
 
@@ -299,6 +287,7 @@ class MonthAdapter extends BaseAdapter {
         Log.d(TAG, "getView(" + position + ") called.");
 
         MonthItemView itemView;
+       // ListItemView litemView;
         //RecyclerView.ViewHolder holder = null;
 
         if (convertView == null) {
@@ -306,11 +295,18 @@ class MonthAdapter extends BaseAdapter {
         } else {
             itemView = (MonthItemView) convertView;
         }
+/*
+        if (convertView == null) {
+            litemView = new MonthItemView(mContext);
+        } else {
+            litemView = (MonthItemView) convertView;
+        }
+        */
+
 
         // create a params
         GridView.LayoutParams params = new GridView.LayoutParams(
-                GridView.LayoutParams.MATCH_PARENT,
-                196);
+                GridView.LayoutParams.MATCH_PARENT, 196);
 
         // calculate row and column
         int rowIndex = position / countColumn;
@@ -336,13 +332,14 @@ class MonthAdapter extends BaseAdapter {
             itemView.setTextColor(Color.BLACK);
         }
 
-        // set background color
+        // set click background color
         if (position == getSelectedPosition()) {
+            //Log.d("ClickBackground", "Selected : " );
+            //itemView.setTextColor(Color.RED);
             itemView.setBackgroundColor(Color.YELLOW);
         } else {
             itemView.setBackgroundColor(Color.rgb(250, 250, 250));
         }
-
 
         //set today background color
         mCals = Calendar.getInstance();
@@ -351,9 +348,8 @@ class MonthAdapter extends BaseAdapter {
 
         if (sToday.equals(getItem(position))) {
             itemView.setBackgroundColor(Color.BLUE);
+            //itemView.setTextColor(Color.GREEN);
         }
-
-
 
         return itemView;
     }
@@ -421,7 +417,6 @@ class MonthAdapter extends BaseAdapter {
      * @return
      */
     public int getSelectedPosition() {
-        int selectedPosition = this.selectedPosition;
         return selectedPosition;
     }
 
@@ -452,6 +447,31 @@ class MonthItem {
 }
 
 /**
+ * 약 리스트를 담기 위한 클래스 정의
+
+class ListItem {
+    private int peelValue;
+
+    public ListItem() {
+
+    }
+
+    public ListItem(int day) {
+        peelValue = day;
+    }
+
+    public int getDay() {
+        return peelValue;
+    }
+
+    public void setDay(int day) {
+        this.peelValue = day;
+    }
+
+}
+ */
+
+/**
  * 일자에 표시하는 텍스트뷰 정의
  */
 class MonthItemView extends AppCompatTextView {
@@ -471,6 +491,48 @@ class MonthItemView extends AppCompatTextView {
     }
 
     private void init() {
+
+        setBackgroundColor(Color.rgb(250, 250, 250));
+    }
+
+    public MonthItem getItem() {
+        return item;
+    }
+
+    public void setItem(MonthItem item) {
+        this.item = item;
+
+        int day = item.getDay();
+        if (day != 0) {
+            setText(String.valueOf(day));
+        } else {
+            setText("");
+        }
+
+    }
+}
+
+/**
+ * 일자에 표시하는 텍스트뷰 정의
+
+class ListItemView extends AppCompatTextView {
+
+    private ListItem item;
+
+    public ListItemView(Context context) {
+        super(context);
+
+        init();
+    }
+
+    public ListItemView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
+        init();
+    }
+
+    private void init() {
+
         setBackgroundColor(Color.rgb(250, 250, 250));
     }
 
@@ -492,3 +554,4 @@ class MonthItemView extends AppCompatTextView {
 
 
 }
+ */
