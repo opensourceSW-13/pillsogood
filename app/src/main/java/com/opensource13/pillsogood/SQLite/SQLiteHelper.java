@@ -23,7 +23,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS MYDRUG (name TEXT PRIMARY KEY NOT NULL, day TEXT NOT NULL, time TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS MYDRUG (name TEXT PRIMARY KEY NOT NULL, day TEXT NOT NULL, time TEXT NOT NULL, memo TEXT)");
 
     }
 
