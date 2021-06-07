@@ -36,11 +36,27 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
 
     }
+//
+//    public ArrayList getdruglist(){
+//
+//        String SELECT_QUERY = "SELECT * FROM MYDRUG";
+//
+//        ArrayList Mydrugitem = new ArrayList<Mydrugitem>();
+//
+//        Cursor cur= getWritableDatabase().rawQuery(SELECT_QUERY, null);
+//        if(cur!=null && cur.moveToFirst()){
+//            do{
+//                Mydrugitem.add(new Mydrugitem(cur.getString(0), cur.getString(1), cur.getString(2)));
+//            }while(cur.moveToNext());
+//        }
+//        return Mydrugitem;
+//    }
+
 
 //    public ArrayList<Mydrugitem> getdruglist(){
 //        ArrayList<Mydrugitem> mydrugitems = new ArrayList<>();
 //        SQLiteDatabase db = getReadableDatabase();
-//        Cursor cursor = db.rawQuery("SELECT * FROM MYDRUG", null);
+//        Cursor cursor = db.rawQuery("SELECT * FROM MYDRUG");
 //        if(cursor.getCount() != 0){
 //            while (cursor.moveToNext()){
 //                String name = cursor.getString(cursor.getColumnIndex("name"));
