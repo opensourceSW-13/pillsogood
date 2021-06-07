@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -131,10 +132,10 @@ public class SetalarmActivity extends AppCompatActivity {
 
                 // 약 이름 입력값 가져오기
                 EditText pillName = (EditText) findViewById(R.id.pillName);
-                String name = pillName.getText().toString();;
+                String name = pillName.getText().toString();
 
 
-                if (pillName.getText().toString().replace(" ", "").equals("")) { // 공백이면
+                if (TextUtils.isEmpty(pillName.getText())) { // 공백이면
                     Toast.makeText(getApplicationContext(), "값을 입력해주세요.", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -161,13 +162,11 @@ public class SetalarmActivity extends AppCompatActivity {
                 EditText pillMemo = (EditText)findViewById(R.id.pillMemo);
                 String memo = pillMemo.getText().toString();
 
-
                 // DB에 항목 추가
                 SQLiteDatabase db;
 
-
                 db = helper.getWritableDatabase();
-                db.execSQL("insert into MYDRUG values('" + name + "', '" + day + "', '" + time + "')");
+                db.execSQL("insert into MYDRUG values('" + name + "', '" + day + "', '" + time + "', '" + memo + "')");
 
                 Toast.makeText(getApplicationContext(), "저장 완료", Toast.LENGTH_LONG).show();
 
