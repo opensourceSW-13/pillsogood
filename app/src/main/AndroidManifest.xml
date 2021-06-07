@@ -9,17 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pillsogood">
-        <activity android:name=".SetalarmActivity"></activity>
-        <activity android:name=".DaydruglistActivity" />
-        <activity android:name=".MydrugActivity" />
-        <activity android:name=".Introscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/button_information" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name=".SetalarmActivity" />
+        <activity android:name=".DaydruglistActivity" />
+        <activity android:name=".MydrugActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Introscreen" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

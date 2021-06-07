@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "MYDRUG.db";
+    private static final String DB_NAME = "MYDRUG.db"; //저장한 디비의 이름
 
     public SQLiteHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -35,6 +35,22 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
 
     }
+//
+//    public ArrayList getdruglist(){
+//
+//        String SELECT_QUERY = "SELECT * FROM MYDRUG";
+//
+//        ArrayList Mydrugitem = new ArrayList<Mydrugitem>();
+//
+//        Cursor cur= getWritableDatabase().rawQuery(SELECT_QUERY, null);
+//        if(cur!=null && cur.moveToFirst()){
+//            do{
+//                Mydrugitem.add(new Mydrugitem(cur.getString(0), cur.getString(1), cur.getString(2)));
+//            }while(cur.moveToNext());
+//        }
+//        return Mydrugitem;
+//    }
+
 
     /*public String getNameResult(SQLiteDatabase db) {
         // 읽기가 가능하게 DB 열기
@@ -75,7 +91,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 //    public ArrayList<Mydrugitem> getdruglist(){
 //        ArrayList<Mydrugitem> mydrugitems = new ArrayList<>();
 //        SQLiteDatabase db = getReadableDatabase();
-//        Cursor cursor = db.rawQuery("SELECT * FROM MYDRUG", null);
+//        Cursor cursor = db.rawQuery("SELECT * FROM MYDRUG");
 //        if(cursor.getCount() != 0){
 //            while (cursor.moveToNext()){
 //                String name = cursor.getString(cursor.getColumnIndex("name"));
