@@ -15,7 +15,13 @@
 
         <activity android:name=".SetalarmActivity" />
         <activity android:name=".DaydruglistActivity" />
-        <activity android:name=".MydrugActivity"></activity>
+        <activity android:name=".MydrugActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
         <activity android:name=".Introscreen" />
         <activity android:name=".MainActivity" />
     </application>
