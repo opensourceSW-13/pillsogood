@@ -6,6 +6,7 @@ public class Mydrugitem {
     private String name;        //약이름
     private String day;         //복용 요일
     private String time;         //복용 시간
+    private String memo;
 
     public Mydrugitem() {
     }
@@ -24,6 +25,10 @@ public class Mydrugitem {
         return time;
     }
 
+    public String getMemo() {
+        return memo;
+    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -37,4 +42,9 @@ public class Mydrugitem {
         this.time = time;
     }
 
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
 }
+
