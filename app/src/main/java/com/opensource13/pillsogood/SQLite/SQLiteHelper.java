@@ -4,11 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-
-import com.opensource13.pillsogood.MainActivity;
-
 import java.util.ArrayList;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
@@ -17,9 +15,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "MYDRUG.db";
 
     public SQLiteHelper(@Nullable Context context) {
-        super(context, DB_NAME,null, DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
 
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -36,6 +35,42 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
 
     }
+
+    /*public String getNameResult(SQLiteDatabase db) {
+        // 읽기가 가능하게 DB 열기
+        db = getReadableDatabase();
+        String nameResult = "";
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM MYDRUG", null);
+        while (cursor.moveToNext()) {
+            nameResult += cursor.getString(0)        //약이름
+                       + "\n";
+        }
+
+        return nameResult;
+
+    }
+
+    public String getDayResult(SQLiteDatabase db) {
+        // 읽기가 가능하게 DB 열기
+        db = getReadableDatabase();
+        String dayResult = "";
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM MYDRUG", null);
+        while (cursor.moveToNext()) {
+            dayResult += cursor.getString(1)        //요일 (column 판별용)
+                      + "\n";
+        }
+
+        return dayResult;
+
+    }
+
+   */
+
+
 
 //    public ArrayList<Mydrugitem> getdruglist(){
 //        ArrayList<Mydrugitem> mydrugitems = new ArrayList<>();

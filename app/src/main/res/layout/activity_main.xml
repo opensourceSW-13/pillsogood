@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
@@ -18,7 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#ffffffff">
+            android:background="#FFE596">
 
             <Button
                 android:id="@+id/monthPrevious"
@@ -34,6 +35,7 @@
                 android:layout_width="198dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center_horizontal"
                 android:text="MonthView"
                 android:textColor="@color/black"
@@ -58,7 +60,6 @@
             android:layout_centerInParent="true"
             android:layout_margin="10dp"
             android:gravity="center_horizontal"
-            android:rotationX="-2"
             android:text="복용한 약"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textSize="15dp"
@@ -68,7 +69,7 @@
             android:id="@+id/monthView"
             android:layout_width="match_parent"
             android:layout_height="440dp"
-            android:background="#ffbbbbbb"
+            android:background="#ffffff"
             android:horizontalSpacing="1dp"
             android:numColumns="7"
             android:stretchMode="columnWidth"
@@ -77,7 +78,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffffff"
+            android:background="#FFE596"
             android:visibility="visible"
             tools:visibility="visible">
 
@@ -87,10 +88,11 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#FFFFFF"
+                android:backgroundTint="#FFFFFF"
                 android:gravity="center_horizontal"
                 android:text="내 약"
-                android:textColor="@color/ic_launcher_background"
 
+                android:textColor="@color/ic_launcher_background"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 app:iconTint="#FFFFFF"
