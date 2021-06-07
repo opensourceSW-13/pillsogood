@@ -6,4 +6,198 @@
     android:layout_height="match_parent"
     tools:context=".SetalarmActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffffff">
+
+            <Button
+                android:id="@+id/setAlarmPrevious"
+                android:layout_width="20dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="13dp"
+                android:background="@drawable/backward"
+                android:gravity="center_horizontal" />
+
+            <Button
+                android:id="@+id/setAlarmSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:text="저장"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="117dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="50dp"
+                android:gravity="center_horizontal"
+                android:text="약 이름"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/inputPillName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="50dp"
+                android:gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            android:gravity="center_horizontal"
+            android:text="복용 요일"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/btn_round"
+            android:id="@+id/btn_test"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="월"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/btn_round"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="화"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/btn_round"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="수"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/btn_round"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="목"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/btn_round"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="금"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/btn_round"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="토"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/btn_round"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="일"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="117dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/pillTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="50dp"
+            android:gravity="center_horizontal"
+            android:text="복용 시간"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/selectTime"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="50dp"
+            android:text="시간 설정"
+            android:gravity="center_horizontal" />
+
+    </RelativeLayout>
+
+        <EditText
+            android:id="@+id/memo"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:background="@drawable/memoborder"
+            android:textColorHint="#656668"
+            android:padding="10dp"
+            android:textSize="15dp"
+            android:hint="(약에 대한 메모를 남겨보세요.)\nex. 용량, 복용법, 주의사항 등" />
+
+    </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
