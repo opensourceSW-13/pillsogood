@@ -1,6 +1,8 @@
 package com.opensource13.pillsogood;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.text.format.Time;
 import android.util.AttributeSet;
@@ -11,22 +13,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.opensource13.pillsogood.SQLite.SQLiteHelper;
+
 import java.util.Calendar;
 
-/**
- * 어댑터 객체 정의
- *
- * @author Mike
- *
- */
+//어댑터 객체 정의,데이터를 어떻게 담을지만 관리하고 view 생성
 public class MonthAdapter extends BaseAdapter {
 
     public static final String TAG = "MonthAdapter";
 
     Context mContext;
-
-    public static int oddColor = Color.rgb(225, 225, 225);
-    public static int headColor = Color.rgb(12, 32, 158);
 
     private int selectedPosition = -1;
 
@@ -41,9 +39,7 @@ public class MonthAdapter extends BaseAdapter {
 
     int firstDay;
     int lastDay;
-
     Calendar mCalendar;
-    boolean recreateItems = false;
 
     public MonthAdapter(Context context) {
         super();
@@ -63,15 +59,12 @@ public class MonthAdapter extends BaseAdapter {
 
     private void init() {
         items = new MonthItem[7 * 6];
-
         mCalendar = Calendar.getInstance();
         recalculate();
         resetDayNumbers();
-
     }
 
     public void recalculate() {
-
         // set to the first day of the month
         mCalendar.set(Calendar.DAY_OF_MONTH, 1);
 
@@ -145,34 +138,43 @@ public class MonthAdapter extends BaseAdapter {
 
 
     public int getCurYear() {
+
         return curYear;
     }
 
     public int getCurMonth() {
+
         return curMonth;
     }
 
 
     public int getNumColumns() {
+
         return 7;
     }
 
     public int getCount() {
+
         return 7 * 6;
     }
 
     public Object getItem(int position) {
+
         return items[position];
     }
 
     public long getItemId(int position) {
+
         return position;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d(TAG, "getView(" + position + ") called.");
 
+        Log.d(TAG, "getView(" + position + ") called.");
+        //position은 칸의 순서
         MonthItemView itemView;
+        RecyclerView.ViewHolder holder = null;
+
         if (convertView == null) {
             itemView = new MonthItemView(mContext);
         } else {
@@ -181,12 +183,11 @@ public class MonthAdapter extends BaseAdapter {
 
         // create a params
         GridView.LayoutParams params = new GridView.LayoutParams(
-                GridView.LayoutParams.MATCH_PARENT,
-                120);
+                GridView.LayoutParams.MATCH_PARENT, 230);
 
         // calculate row and column
         int rowIndex = position / countColumn;
-        int columnIndex = position % countColumn;
+        int columnIndex = position % countColumn; //요일 0~6 으로 데베 구별해서 가져오기
 
         Log.d(TAG, "Index : " + rowIndex + ", " + columnIndex);
 
@@ -195,28 +196,103 @@ public class MonthAdapter extends BaseAdapter {
         itemView.setLayoutParams(params);
         itemView.setPadding(2, 2, 2, 2);
 
+
+
+      /*  if (columnIndex == 0) {                                                     //일요일칸에 db에 저장된 약이름 불러와서 텍스트로 띄우기
+            if (cursor.getString(1).equals("일") {
+            //db읽는 코드
+            //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+            itemView.setText(result);
+            }
+        }
+         else if (columnIndex == 1) {
+            if (cursor.getString(1).equals("월") {
+             //db읽는 코드
+             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+           itemView.setText(result);
+            }
+        }
+
+        else if (columnIndex == 2) {
+            if (cursor.getString(1).equals("화") {
+             //db읽는 코드
+             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+           itemView.setText(result);
+            }
+        }
+
+        else if (columnIndex == 3) {
+            if (cursor.getString(1).equals("수") {
+             //db읽는 코드
+             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+           itemView.setText(result);
+            }
+        }
+
+        else if (columnIndex == 4) {
+            if (cursor.getString(1).equals("목") {
+             //db읽는 코드
+             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+           itemView.setText(result);
+            }
+        }
+
+       else if (columnIndex == 5) {
+            if (cursor.getString(1).equals("금") {
+             //db읽는 코드
+             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+           itemView.setText(result);
+            }
+        }
+
+        else {
+            if (cursor.getString(1).equals("토") {
+                //db읽는 코드
+                // name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+                itemView.setText(result);
+            }
+        }
+
+       */
+
         // set properties
         itemView.setGravity(Gravity.LEFT);
-
+        //String s = "13";
+        //if ( getItem(position).equals(s)) {
+        //itemView.setBackgroundColor(Color.rgb(181, 195, 252));
+        //}
         if (columnIndex == 0) {
             itemView.setTextColor(Color.RED);
-        } else {
+        }
+        else if (columnIndex == 6) {
+            itemView.setTextColor(Color.BLUE);
+        }
+
+        else {
             itemView.setTextColor(Color.BLACK);
         }
-
-        // set background color
+/*
+       // set click background color
         if (position == getSelectedPosition()) {
+            //Log.d("ClickBackground", "Selected : " );
             itemView.setBackgroundColor(Color.YELLOW);
         } else {
-            itemView.setBackgroundColor(Color.WHITE);
+            itemView.setBackgroundColor(Color.rgb(255, 245, 206));
         }
 
-
-
-
+*/
+/*
+        //change today background color
+        mCalendar = Calendar.getInstance();
+        int today = mCalendar.get(Calendar.DAY_OF_MONTH);
+        String sToday = String.valueOf(today);
+        String sPosition = String.valueOf(getItem(position));
+        if (sToday.equals(getItem(position))) {
+            itemView.setBackgroundColor(Color.rgb(181, 195, 252));
+        }
+*/
         return itemView;
     }
-
 
     /**
      * Get first day of week as android.text.format.Time constant.
@@ -232,7 +308,6 @@ public class MonthAdapter extends BaseAdapter {
             return Time.SUNDAY;
         }
     }
-
 
     /**
      * get day count for each month
@@ -267,13 +342,6 @@ public class MonthAdapter extends BaseAdapter {
         }
     }
 
-
-
-
-
-
-
-
     /**
      * set selected row
      */
@@ -290,6 +358,4 @@ public class MonthAdapter extends BaseAdapter {
         return selectedPosition;
     }
 
-
 }
-
