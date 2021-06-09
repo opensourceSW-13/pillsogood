@@ -51,6 +51,7 @@ public class mydrugadapter extends BaseAdapter {
         TextView drugname = (TextView)view.findViewById(R.id.drug_name);
         TextView drugday = (TextView)view.findViewById(R.id.drug_day);
         TextView drugtime = (TextView)view.findViewById(R.id.drug_time);
+        TextView drugmemo = (TextView)view.findViewById(R.id.drug_memo);
 
         //현재 포지션에 해당하는 아이템에 글자를 적용하기 위해 list배열에서 객체를 가져온다.
         Mydrugitem listdata = list.get(i);
@@ -59,15 +60,18 @@ public class mydrugadapter extends BaseAdapter {
         drugname.setText(listdata.getName());
         drugday.setText(listdata.getDay());
         drugtime.setText(listdata.getTime());
+        drugmemo.setText(listdata.getMemo());
+
 
         return view;
     }
-    public void addItemToList(String name,String day, String time){
+    public void addItemToList(String name,String day, String time, String memo){
         Mydrugitem listdata = new Mydrugitem();
 
         listdata.setName(name);
         listdata.setDay(day);
         listdata.setTime(time);
+        listdata.setMemo(memo);
 
         //값들의 조립이 완성된 listdata객체 한개를 list배열에 추가
         list.add(listdata);

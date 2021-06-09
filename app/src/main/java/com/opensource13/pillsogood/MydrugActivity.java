@@ -60,7 +60,6 @@ public class MydrugActivity extends AppCompatActivity {
         mydruglist = (ListView)findViewById(R.id.mydrug_list);
         button_add = (Button)findViewById(R.id.button_add);
         button_back = (Button)findViewById(R.id.button_back);
-        button_delete = (Button)findViewById(R.id.button_delete);
         button_information = (Button)findViewById(R.id.button_information);
         button_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,15 +77,15 @@ public class MydrugActivity extends AppCompatActivity {
                 startActivity(intent);//화면 1로 이동
             }
         });
-        button_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                db Delete = new db();
-                Delete.db.execSQL("delete from MYDRUG ");
-
-            }
-        });
+//        button_delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                db Delete = new db();
+//                Delete.db.execSQL("delete from MYDRUG ");
+//
+//            }
+//        });
         button_information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +121,7 @@ public class MydrugActivity extends AppCompatActivity {
         displayList();
 
 
+
     }
     void displayList(){
         //Dbhelper의 읽기모드 객체를 가져와 SQLiteDatabase에 담아 사용준비
@@ -137,7 +137,7 @@ public class MydrugActivity extends AppCompatActivity {
         //목록의 개수만큼 순회하여 adapter에 있는 list배열에 add
         while(cursor.moveToNext()){
             //num 행은 가장 첫번째에 있으니 0번이 되고, name은 1번
-            adapter.addItemToList(cursor.getString(0),cursor.getString(1),cursor.getString(2));
+            adapter.addItemToList(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
         }
 
         //리스트뷰의 어댑터 대상을 여태 설계한 adapter로 설정

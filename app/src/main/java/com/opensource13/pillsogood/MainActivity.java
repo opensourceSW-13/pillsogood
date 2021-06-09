@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     String result;
 
+    int dayofweek;
+
 
 
     @Override
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             monthViewAdapter = new MonthAdapter(getApplicationContext());
             monthView.setAdapter(monthViewAdapter);
 
+
             // 리스너 설정
             monthView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     // 현재 선택한 일자 정보 표시
                     MonthItem curItem = (MonthItem) monthViewAdapter.getItem(position);
                     int day = curItem.getDay();
+                    dayofweek=
 
                     Log.d("MainActivity", "Selected : " + day);
 
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Intent intent = new Intent(MainActivity.this, DaydruglistActivity.class);
-                    // intent.putExtra("image", logos[position]); // put image data in Intent
+//                    intent.putExtra("dayofweek", colum); // put image data in Intent
                     startActivity(intent); // start Intent
                 }
             });

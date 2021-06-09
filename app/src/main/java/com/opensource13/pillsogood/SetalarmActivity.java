@@ -1,16 +1,21 @@
 package com.opensource13.pillsogood;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -23,12 +28,19 @@ import com.opensource13.pillsogood.SQLite.SQLiteHelper;
 
 import java.security.PublicKey;
 import java.util.Calendar;
+import java.util.Date;
 
 public class SetalarmActivity extends AppCompatActivity {
 
-    TimePickerDialog picker;
+    private TimePicker timePicker;
+    private AlarmManager alarmManager;
+    SQLiteHelper helper = new SQLiteHelper(this);
+    SQLiteDatabase db;
 
-    // Edit Text가 아닌 영역을 터치하는 경우, 키보드 내림
+    private int hour, minute;
+    CheckBox cbSun, cbMon, cbTue, cbWed, cbThu, cbFri, cbSat;
+
+    static String TAG="setalarm";
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View focusView = getCurrentFocus();
@@ -46,74 +58,22 @@ public class SetalarmActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setalarm);
 
-        SQLiteHelper helper = new SQLiteHelper(this); // 헬퍼 선언
+        timePicker=findViewById(R.id.tp_timepicker);
+        alarmManager= (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 
+        cbSun=findViewById(R.id.cb_sun);
+        cbMon=findViewById(R.id.cb_mon);
+        cbTue=findViewById(R.id.cb_tue);
+        cbWed=findViewById(R.id.cb_wed);
+        cbThu=findViewById(R.id.cb_thu);
+        cbFri=findViewById(R.id.cb_fri);
+        cbSat=findViewById(R.id.cb_sat);
 
-        // 복용 요일 체크박스
-        final RadioButton cb_Mon = (RadioButton) findViewById(R.id.cb_Mon);
-        final RadioButton cb_Tue = (RadioButton) findViewById(R.id.cb_Tue);
-        final RadioButton cb_Wed = (RadioButton) findViewById(R.id.cb_Wed);
-        final RadioButton cb_Thu = (RadioButton) findViewById(R.id.cb_Thu);
-        final RadioButton cb_Fri = (RadioButton) findViewById(R.id.cb_Fri);
-        final RadioButton cb_Sat = (RadioButton) findViewById(R.id.cb_Sat);
-        final RadioButton cb_Sun = (RadioButton) findViewById(R.id.cb_Sun);
-
-        // 복용 시간 입력값 가져오기 (time picker 띄우기)
-        TextView pillTime = (TextView) findViewById(R.id.pillTime);
-        pillTime.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minute = cldr.get(Calendar.MINUTE);
-
-                // Time picker Dialog
-
-                TimePickerDialog picker = new TimePickerDialog(SetalarmActivity.this, android.R.style.Theme_Holo_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        //String state = "AM";
-                        // 선택한 시간이 12를 넘을경우 "PM"으로 변경 및 -12시간하여 출력 (ex : PM 6시 30분)
-                        //if (selectedHour > 12) {
-                        //    selectedHour -= 12;
-                        //    state = "PM";
-                        //}
-
-                        String hourString;
-                        String minuteString;
-
-                        if (selectedHour <10) {
-                            hourString = "0" + selectedHour;
-                        } else {
-                            hourString = String.valueOf(selectedHour);
-                        }
-
-                        if (selectedMinute < 10) {
-                            minuteString = "0" + selectedMinute;
-                        } else {
-                            minuteString = String.valueOf(selectedMinute);
-                        }
-
-                        String timeString = hourString + ":" + minuteString;
-
-                        // EditText에 출력할 형식 지정
-                        pillTime.setText(timeString);
-                    }
-                }, hour, minute, true); // true의 경우 24시간 형식의 TimePicker 출현
-                picker.getWindow().setBackgroundDrawableResource((android.R.color.transparent));
-                picker.show();
-            }
-        });
-
-
-        // 이전 버튼 클릭 시 화면3으로 액티비티 전환
         Button setAlarmPrevious = (Button) findViewById(R.id.setAlarmPrevious);
         setAlarmPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,12 +83,13 @@ public class SetalarmActivity extends AppCompatActivity {
             }
         });
 
-        // 저장 버튼 클릭 시 DB에 내용 추가 + 액티비티 전환
         Button setAlarmSave = (Button) findViewById(R.id.setAlarmSave);
         setAlarmSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
+                regist(v);
 
                 // 약 이름 입력값 가져오기
                 EditText pillName = (EditText) findViewById(R.id.pillName);
@@ -145,17 +106,16 @@ public class SetalarmActivity extends AppCompatActivity {
                 String day = "";
                 // 다중선택 가능하게 할 경우 -> 체크박스로 바꾼 후
                 // if (cb_Mon.isChecked() == true) day += cb_Mon.getText().toString() + " ";
-                if (cb_Mon.isChecked() == true) day = cb_Mon.getText().toString();
-                if (cb_Tue.isChecked() == true) day = cb_Tue.getText().toString();
-                if (cb_Wed.isChecked() == true) day = cb_Wed.getText().toString();
-                if (cb_Thu.isChecked() == true) day = cb_Thu.getText().toString();
-                if (cb_Fri.isChecked() == true) day = cb_Fri.getText().toString();
-                if (cb_Sat.isChecked() == true) day = cb_Sat.getText().toString();
-                if (cb_Sun.isChecked() == true) day = cb_Sun.getText().toString();
+                if (cbMon.isChecked() == true) day = cbMon.getText().toString();
+                if (cbTue.isChecked() == true) day = cbTue.getText().toString();
+                if (cbWed.isChecked() == true) day = cbWed.getText().toString();
+                if (cbThu.isChecked() == true) day = cbThu.getText().toString();
+                if (cbFri.isChecked() == true) day = cbFri.getText().toString();
+                if (cbSat.isChecked() == true) day = cbSat.getText().toString();
+                if (cbSun.isChecked() == true) day = cbSun.getText().toString();
 
 
-                // 복용 시간 입력값 가져오기
-                String time =  pillTime.getText().toString();
+
 
 
                 // 메모 입력값 가져오기
@@ -166,7 +126,7 @@ public class SetalarmActivity extends AppCompatActivity {
                 SQLiteDatabase db;
 
                 db = helper.getWritableDatabase();
-                db.execSQL("insert into MYDRUG values('" + name + "', '" + day + "', '" + time + "', '" + memo + "')");
+                db.execSQL("insert into MYDRUG values('" + name + "', '" + day + "', '" + hour+":"+minute + "', '" + memo + "')");
 
                 Toast.makeText(getApplicationContext(), "저장 완료", Toast.LENGTH_LONG).show();
 
@@ -179,5 +139,60 @@ public class SetalarmActivity extends AppCompatActivity {
 
         });
 
-    }
+    }// onCreate()..
+
+    public void regist(View view) {
+
+
+        boolean[] week = { false, cbSun.isChecked(), cbMon.isChecked(), cbTue.isChecked(), cbWed.isChecked(),
+                cbThu.isChecked(), cbFri.isChecked(), cbSat.isChecked() }; // cbSun을 1번부터 사용하기 위해 배열 0번은 false로 고정
+
+        if(!cbSun.isChecked() &&  !cbMon.isChecked() &&  !cbTue.isChecked() && !cbWed.isChecked() &&  !cbThu.isChecked() && !cbFri.isChecked() && !cbSat.isChecked()){
+            Toast.makeText(this, "요일을 선택해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            hour=timePicker.getHour();
+            minute=timePicker.getMinute();
+        }else{
+            Toast.makeText(this, "버전을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, Alarm.class);
+        intent.putExtra("weekday", week);
+        PendingIntent pIntent = PendingIntent.getBroadcast(this, 0,intent, 0); //PendingIntent.FLAG_UPDATE_CURRENT
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date today = new Date();
+        long intervalDay = 24 * 60 * 60 * 1000;// 24시간
+
+        long selectTime=calendar.getTimeInMillis();
+        long currenTime=System.currentTimeMillis();
+
+        //만약 설정한 시간이, 현재 시간보다 작다면 알람이 부정확하게 울리기 때문에 다음날 울리게 설정
+        if(currenTime>selectTime){
+            selectTime += intervalDay;
+        }
+
+        Log.e(TAG,"등록 버튼을 누른 시간 : "+today+"  설정한 시간 : "+calendar.getTime());
+
+        Log.d(TAG,"calendar.getTimeInMillis()  : "+calendar.getTimeInMillis());
+
+        // 지정한 시간에 매일 알림
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, selectTime,  intervalDay, pIntent);
+
+    }// regist()..
+
+    public void unregist(View view) {
+        Intent intent = new Intent(this, Alarm.class);
+        PendingIntent pIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.cancel(pIntent);
+    }// unregist()..
 }

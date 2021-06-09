@@ -198,62 +198,64 @@ public class MonthAdapter extends BaseAdapter {
 
 
 
-      /*  if (columnIndex == 0) {                                                     //일요일칸에 db에 저장된 약이름 불러와서 텍스트로 띄우기
-            if (cursor.getString(1).equals("일") {
-            //db읽는 코드
-            //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
-            itemView.setText(result);
-            }
-        }
-         else if (columnIndex == 1) {
-            if (cursor.getString(1).equals("월") {
-             //db읽는 코드
-             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
-           itemView.setText(result);
-            }
-        }
 
-        else if (columnIndex == 2) {
-            if (cursor.getString(1).equals("화") {
-             //db읽는 코드
-             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
-           itemView.setText(result);
-            }
-        }
 
-        else if (columnIndex == 3) {
-            if (cursor.getString(1).equals("수") {
-             //db읽는 코드
-             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
-           itemView.setText(result);
-            }
-        }
+//      /*  if (columnIndex == 0) {                                                     //일요일칸에 db에 저장된 약이름 불러와서 텍스트로 띄우기
+//            if (cursor.getString(1).equals("일") {
+//            //db읽는 코드
+//            //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+//            itemView.setText(result);
+//            }
+//        }
+//         else if (columnIndex == 1) {
+//            if (cursor.getString(1).equals("월") {
+//             //db읽는 코드
+//             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+//           itemView.setText(result);
+//            }
+//        }
+//
+//        else if (columnIndex == 2) {
+//            if (cursor.getString(1).equals("화") {
+//             //db읽는 코드
+//             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+//           itemView.setText(result);
+//            }
+//        }
+//
+//        else if (columnIndex == 3) {
+//            if (cursor.getString(1).equals("수") {
+//             //db읽는 코드
+//             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+//           itemView.setText(result);
+//            }
+//        }
+//
+//        else if (columnIndex == 4) {
+//            if (cursor.getString(1).equals("목") {
+//             //db읽는 코드
+//             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+//           itemView.setText(result);
+//            }
+//        }
+//
+//       else if (columnIndex == 5) {
+//            if (cursor.getString(1).equals("금") {
+//             //db읽는 코드
+//             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+//           itemView.setText(result);
+//            }
+//        }
+//
+//        else {
+//            if (cursor.getString(1).equals("토") {
+//                //db읽는 코드
+//                // name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
+//                itemView.setText(result);
+//            }
+//        }
 
-        else if (columnIndex == 4) {
-            if (cursor.getString(1).equals("목") {
-             //db읽는 코드
-             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
-           itemView.setText(result);
-            }
-        }
 
-       else if (columnIndex == 5) {
-            if (cursor.getString(1).equals("금") {
-             //db읽는 코드
-             //name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
-           itemView.setText(result);
-            }
-        }
-
-        else {
-            if (cursor.getString(1).equals("토") {
-                //db읽는 코드
-                // name만 출력 되도록 getNameResult(db) -> result = cursor.getString(0)
-                itemView.setText(result);
-            }
-        }
-
-       */
 
         // set properties
         itemView.setGravity(Gravity.LEFT);

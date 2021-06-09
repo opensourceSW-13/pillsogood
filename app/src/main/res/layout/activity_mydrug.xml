@@ -72,6 +72,15 @@
             android:fontFamily="casual"
             />
 
+
+        <ListView
+            android:id="@+id/mydrug_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="200dp"
+            android:divider="@null" />
+
         <Button
             android:id="@+id/button_add"
             android:layout_marginLeft="50dp"
@@ -81,25 +90,8 @@
             android:layout_height="wrap_content"
             android:text="+ 약 추가"
             android:backgroundTint="@color/purple_700"
-        />
-
-        <Button
-            android:id="@+id/button_delete"
-            android:layout_marginLeft="250dp"
-            android:layout_marginTop="150dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="- 약 삭제"
-            android:backgroundTint="@color/design_default_color_error"
             />
-        <ListView
-            android:id="@+id/mydrug_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="200dp"
-            android:divider="@null" />
+
     </RelativeLayout>
 
 </LinearLayout>
