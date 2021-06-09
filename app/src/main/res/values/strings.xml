@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">pillsogood</string>
+    <string name="done">done</string>
+
 </resources>

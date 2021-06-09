@@ -1,9 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DaydruglistActivity">
+    tools:context=".MainActivity">
 
+    //뒤로가기 버튼
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_back"
+        android:layout_width="62dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_arrowleft" />
+
+    //LinearLayout
+
+    <LinearLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        >
+
+        //오늘 복용할 약 이미지, 텍스트
+        <TextView
+            android:id="@+id/tv_daydrug"
+            android:layout_width="222dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/igm_pill"
+            android:layout_alignBottom="@id/igm_pill"
+
+            android:text="오늘 복용할 약"
+            android:textSize="20dp"
+
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/igm_pill"
+            android:layout_width="54dp"
+            android:layout_height="56dp"
+            app:srcCompat="@drawable/icon_pill"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="91dp" />
+
+        // 날짜 텍스트
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="날짜"
+            android:layout_alignRight="@id/tv_daydrug"
+            android:layout_alignBottom="@id/tv_daydrug"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_daydrug"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        //체크리스트
+        <ListView
+            android:id="@+id/listview_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="multipleChoice"
+            />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
