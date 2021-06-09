@@ -5,199 +5,232 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SetalarmActivity">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#ffffffff">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/setAlarmPrevious"
-                android:layout_width="20dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_margin="13dp"
-                android:background="@drawable/backward"
-                android:gravity="center_horizontal" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#ffffffff">
 
-            <Button
-                android:id="@+id/setAlarmSave"
+                <Button
+                    android:id="@+id/setAlarmPrevious"
+                    android:layout_width="20dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/backward"
+                    android:gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/setAlarmSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="저장"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="20dp"
+                    android:text="약 이름"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/pillName"
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="110dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/input_text"
+                    android:gravity="center_horizontal" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="복용 시간"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TimePicker
+                    android:id="@+id/tp_timepicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner" />
+            </LinearLayout>
+
+            <!--        <Button-->
+            <!--            android:id="@+id/button"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginTop="24dp"-->
+            <!--            android:onClick="regist"-->
+            <!--            android:text="등록"-->
+            <!--            app:layout_constraintBaseline_toBaselineOf="@+id/button2"-->
+            <!--            app:layout_constraintEnd_toStartOf="@+id/button2"-->
+            <!--            app:layout_constraintHorizontal_bias="0.5"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tp_timepicker" />-->
+
+            <!--        <Button-->
+            <!--            android:id="@+id/button2"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginTop="28dp"-->
+            <!--            android:onClick="unregist"-->
+            <!--            android:text="해지"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintHorizontal_bias="0.5"-->
+            <!--            app:layout_constraintStart_toEndOf="@+id/button"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tp_timepicker" />-->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_margin="10dp"
-                android:gravity="center_horizontal"
-                android:text="저장"
+                android:layout_margin="20dp"
+                android:text="복용 요일"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="15dp"
                 android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/a">
+                <CheckBox
+                    android:id="@+id/cb_sun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cb_mon"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
 
-        </RelativeLayout>
+                <CheckBox
+                    android:id="@+id/cb_mon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="월"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cb_tue"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/cb_sun"
+                    tools:ignore="MissingConstraints" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="117dp"
-            android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/cb_tue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="화"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cb_wed"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintStart_toEndOf="@+id/cb_mon"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/cb_wed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/cb_tue"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/cb_thu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="목"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cb_fri"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/cb_fri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="금"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cb_sat"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintStart_toEndOf="@+id/cb_thu"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/cb_sat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="토"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintStart_toEndOf="@+id/cb_fri"
+                    tools:ignore="MissingConstraints" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_margin="50dp"
-                android:gravity="center_horizontal"
-                android:text="약 이름"
+
+                android:layout_margin="20dp"
+                android:text="메모"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="15dp"
                 android:textStyle="bold" />
-
             <EditText
-                android:id="@+id/inputPillName"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_margin="50dp"
-                android:gravity="center_horizontal" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:gravity="center_horizontal"
-            android:text="복용 요일"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        >
-
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/btn_round"
-            android:id="@+id/btn_test"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="월"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/btn_round"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="화"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/btn_round"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="수"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/btn_round"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="목"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/btn_round"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="금"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/btn_round"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="토"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/btn_round"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="일"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="117dp"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/pillTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="50dp"
-            android:gravity="center_horizontal"
-            android:text="복용 시간"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/selectTime"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="50dp"
-            android:text="시간 설정"
-            android:gravity="center_horizontal" />
-
-    </RelativeLayout>
-
-        <EditText
-            android:id="@+id/memo"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:gravity="top"
-            android:background="@drawable/memoborder"
-            android:textColorHint="#656668"
-            android:padding="10dp"
-            android:textSize="15dp"
-            android:hint="(약에 대한 메모를 남겨보세요.)\nex. 용량, 복용법, 주의사항 등" />
-
-    </LinearLayout>
-
+                android:id="@+id/pillMemo"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="@drawable/memoborder"
+                android:hint="(약에 대한 메모를 남겨보세요.)\nex. 용량, 복용법, 주의사항 등"
+                android:padding="10dp"
+                android:textColorHint="#656668"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
