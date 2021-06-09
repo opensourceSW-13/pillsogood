@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="7dp"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/druglist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/drug_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:text="이름"/>
+
+        <TextView
+            android:id="@+id/drug_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/drug_name"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"
+            android:text="복용 요일"
+            />
+
+        <TextView
+            android:id="@+id/drug_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/drug_day"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"
+            android:text="복용 시간"
+            />
+        <TextView
+            android:id="@+id/drug_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/drug_time"
+            android:layout_marginLeft="20dp"
+            android:textSize="15dp"
+            android:text="메모"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

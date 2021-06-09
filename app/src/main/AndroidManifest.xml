@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pillsogood">
-        <activity android:name=".SetalarmActivity"></activity>
+        <activity android:name=".AlarmTimeViewActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/button_information" />
+
+        <activity android:name=".SetalarmActivity" />
         <activity android:name=".DaydruglistActivity" />
         <activity android:name=".MydrugActivity" />
         <activity android:name=".Introscreen">
@@ -19,7 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <receiver android:name=".Alarm"></receiver>
+        <activity android:name=".MainActivity">
+
+        </activity>
     </application>
 
 </manifest>

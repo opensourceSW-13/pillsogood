@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.opensource13.pillsogood.CheckableLinearLayout
+    layout_width="50dp"
+    layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />
