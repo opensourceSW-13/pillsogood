@@ -11,30 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
+        <CheckBox
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/checkbox"/>
 
         <TextView
             android:id="@+id/drug_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/checkbox"
+            android:layout_marginLeft="20dp"
             android:textSize="20dp"
             android:text="이름"/>
 
-        <TextView
-            android:id="@+id/drug_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/drug_name"
-            android:layout_marginLeft="20dp"
-            android:textSize="20dp"
-            android:text="복용 요일"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/drug_day"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toRightOf="@id/drug_name"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:textSize="20dp"-->
+<!--            android:text="복용 요일"-->
+<!--            />-->
 
         <TextView
             android:id="@+id/drug_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/drug_day"
+            android:layout_toRightOf="@id/drug_name"
             android:layout_marginLeft="20dp"
             android:textSize="20dp"
             android:text="복용 시간"

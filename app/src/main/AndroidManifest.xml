@@ -18,16 +18,17 @@
         <activity android:name=".SetalarmActivity" />
         <activity android:name=".DaydruglistActivity" />
         <activity android:name=".MydrugActivity" />
-        <activity android:name=".Introscreen" />
-        <receiver android:name=".Alarm"></receiver>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Introscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <receiver android:name=".Alarm"></receiver>
+        <activity android:name=".MainActivity">
+
+        </activity>
     </application>
 
 </manifest>

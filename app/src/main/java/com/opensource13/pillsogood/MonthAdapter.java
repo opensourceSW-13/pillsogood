@@ -36,6 +36,8 @@ public class MonthAdapter extends BaseAdapter {
     int startDay;
     int curYear;
     int curMonth;
+    int result = 0;
+    int columnIndex;
 
     int firstDay;
     int lastDay;
@@ -116,7 +118,6 @@ public class MonthAdapter extends BaseAdapter {
     }
 
     private int getFirstDay(int dayOfWeek) {
-        int result = 0;
         if (dayOfWeek == Calendar.SUNDAY) {
             result = 0;
         } else if (dayOfWeek == Calendar.MONDAY) {
@@ -187,7 +188,7 @@ public class MonthAdapter extends BaseAdapter {
 
         // calculate row and column
         int rowIndex = position / countColumn;
-        int columnIndex = position % countColumn; //요일 0~6 으로 데베 구별해서 가져오기
+        columnIndex = position % countColumn; //요일 0~6 으로 데베 구별해서 가져오기
 
         Log.d(TAG, "Index : " + rowIndex + ", " + columnIndex);
 

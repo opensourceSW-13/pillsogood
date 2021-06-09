@@ -7,20 +7,18 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".DaydruglistActivity">
 
     //뒤로가기 버튼
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_back"
-        android:layout_width="62dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:clickable="true"
-        app:backgroundTint="#00FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_arrowleft" />
+    <Button
+        android:id="@+id/setAlarmPrevious"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="13dp"
+        android:background="@drawable/backward"
+        android:gravity="center_horizontal"
+        tools:ignore="MissingConstraints" />
 
     //LinearLayout
 
@@ -56,17 +54,17 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="91dp" />
 
-        // 날짜 텍스트
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="날짜"
-            android:layout_alignRight="@id/tv_daydrug"
-            android:layout_alignBottom="@id/tv_daydrug"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_daydrug"
-            app:layout_constraintEnd_toEndOf="parent" />
+<!--        // 날짜 텍스트-->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:text="날짜"-->
+<!--            android:layout_alignRight="@id/tv_daydrug"-->
+<!--            android:layout_alignBottom="@id/tv_daydrug"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/tv_daydrug"-->
+<!--            app:layout_constraintEnd_toEndOf="parent" />-->
 
         //체크리스트
         <ListView

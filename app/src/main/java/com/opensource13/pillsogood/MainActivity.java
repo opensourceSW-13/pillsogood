@@ -97,7 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Intent intent = new Intent(MainActivity.this, DaydruglistActivity.class);
-//                    intent.putExtra("dayofweek", colum); // put image data in Intent
+                    int result = position%7;
+                    intent.putExtra("dayofweek",result); // put image data in Intent
+                    Log.d("칼럼값", String.valueOf(monthViewAdapter.columnIndex));
                     startActivity(intent); // start Intent
                 }
             });
